@@ -2,6 +2,25 @@ import { backend } from 'declarations/backend';
 
 let currentCategoryId = null;
 let currentPostId = null;
+let postEditor, commentEditor;
+
+function initializeEditors() {
+    postEditor = window.pell.init({
+        element: document.getElementById('post-editor'),
+        actions: ['bold', 'italic', 'underline', 'strikethrough', 'heading1', 'heading2', 'paragraph', 'quote', 'olist', 'ulist', 'code', 'line'],
+        onChange: html => {
+            // You can handle changes here if needed
+        }
+    });
+
+    commentEditor = window.pell.init({
+        element: document.getElementById('comment-editor'),
+        actions: ['bold', 'italic', 'underline', 'strikethrough'],
+        onChange: html => {
+            // You can handle changes here if needed
+        }
+    });
+}
 
 async function loadCategories() {
     const categories = await backend.getCategories();
@@ -51,7 +70,7 @@ async function loadPosts(categoryId, categoryName) {
 async function loadPostDetail(post) {
     currentPostId = post.id;
     document.getElementById('post-title').textContent = post.title;
-    document.getElementById('post-content').textContent = post.content;
+    document.getElementById('post-content').innerHTML = post.content;
     const comments = await backend.getComments(post.id);
     const commentList = document.getElementById('comment-list');
     commentList.innerHTML = '';
@@ -66,12 +85,13 @@ async function loadPostDetail(post) {
 
 document.getElementById('new-post-btn').onclick = () => {
     document.getElementById('modal').style.display = 'block';
+    postEditor.content.innerHTML = '';
 };
 
 document.getElementById('post-form').onsubmit = async (e) => {
     e.preventDefault();
     const title = document.getElementById('post-title-input').value;
-    const content = document.getElementById('post-content-input').value;
+    const content = postEditor.content.innerHTML;
     await backend.addPost(currentCategoryId, title, content);
     document.getElementById('modal').style.display = 'none';
     loadPosts(currentCategoryId, document.getElementById('category-title').textContent);
@@ -79,10 +99,13 @@ document.getElementById('post-form').onsubmit = async (e) => {
 
 document.getElementById('comment-form').onsubmit = async (e) => {
     e.preventDefault();
-    const content = document.getElementById('comment-content').value;
+    const content = commentEditor.content.innerHTML;
     await backend.addComment(currentPostId, content);
-    document.getElementById('comment-content').value = '';
-    loadPostDetail({ id: currentPostId, title: document.getElementById('post-title').textContent, content: document.getElementById('post-content').textContent });
+    commentEditor.content.innerHTML = '';
+    loadPostDetail({ id: currentPostId, title: document.getElementById('post-title').textContent, content: document.getElementById('post-content').innerHTML });
 };
 
-window.onload = loadCategories;
+window.onload = () => {
+    initializeEditors();
+    loadCategories();
+};
