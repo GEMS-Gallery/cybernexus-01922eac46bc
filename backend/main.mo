@@ -53,6 +53,29 @@ actor {
     let posts = HashMap.fromIter<PostId, Post>(postsEntries.vals(), 10, Nat.equal, Nat.hash);
     let comments = HashMap.fromIter<CommentId, Comment>(commentsEntries.vals(), 10, Nat.equal, Nat.hash);
 
+    // Initialize default categories
+    private func initializeCategories() {
+        let defaultCategories = [
+            ("Penetration Testing", "Discuss techniques and tools for penetration testing"),
+            ("Red Team Operations", "Share experiences and strategies for red team engagements"),
+            ("Blue Team Defense", "Explore defensive tactics and incident response"),
+            ("Malware Analysis", "Analyze and discuss various types of malware"),
+            ("Network Security", "Discuss network security concepts and best practices"),
+            ("Web Application Security", "Explore vulnerabilities and security measures for web applications")
+        ];
+
+        for ((name, description) in defaultCategories.vals()) {
+            let id = nextCategoryId;
+            let category: Category = {
+                id;
+                name;
+                description;
+            };
+            categories.put(id, category);
+            nextCategoryId += 1;
+        };
+    };
+
     // Category functions
     public func addCategory(name: Text, description: Text) : async CategoryId {
         let id = nextCategoryId;
@@ -129,4 +152,7 @@ actor {
         postsEntries := [];
         commentsEntries := [];
     };
+
+    // Initialize categories on canister installation
+    initializeCategories();
 }

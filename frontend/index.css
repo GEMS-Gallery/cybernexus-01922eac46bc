@@ -1,20 +1,26 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Courier New', monospace;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #000000;
+    color: #00FF00;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
+    background-color: #1a1a1a;
+    color: #00FF00;
     text-align: center;
     padding: 1rem;
+    border-bottom: 1px solid #00FF00;
 }
 
 main {
     padding: 2rem;
+}
+
+h1, h2, h3 {
+    color: #00FF00;
 }
 
 ul {
@@ -23,35 +29,40 @@ ul {
 }
 
 li {
-    background-color: #fff;
+    background-color: #1a1a1a;
     margin-bottom: 1rem;
     padding: 1rem;
-    border-radius: 5px;
+    border: 1px solid #00FF00;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 li:hover {
-    background-color: #e0e0e0;
+    background-color: #2a2a2a;
 }
 
 button {
-    background-color: #333;
-    color: #fff;
+    background-color: #00FF00;
+    color: #000000;
     border: none;
     padding: 0.5rem 1rem;
     cursor: pointer;
     margin-bottom: 1rem;
+    font-family: 'Courier New', monospace;
 }
 
 button:hover {
-    background-color: #555;
+    background-color: #00CC00;
 }
 
-textarea {
+textarea, input[type="text"] {
     width: 100%;
-    height: 100px;
+    background-color: #1a1a1a;
+    color: #00FF00;
+    border: 1px solid #00FF00;
+    padding: 0.5rem;
     margin-bottom: 1rem;
+    font-family: 'Courier New', monospace;
 }
 
 .modal {
@@ -61,14 +72,14 @@ textarea {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0,0,0,0.7);
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #1a1a1a;
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid #00FF00;
     width: 80%;
     max-width: 600px;
 }
@@ -77,4 +88,20 @@ textarea {
 #post-form textarea {
     width: 100%;
     margin-bottom: 1rem;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00FF00;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #00CC00;
 }
