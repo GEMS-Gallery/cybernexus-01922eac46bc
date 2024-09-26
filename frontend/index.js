@@ -1,7 +1,9 @@
 import { backend } from 'declarations/backend';
 
 let currentCategoryId = null;
+let currentCategoryName = null;
 let currentPostId = null;
+let currentPostTitle = null;
 let postEditor, commentEditor;
 
 function initializeEditors() {
@@ -22,7 +24,28 @@ function initializeEditors() {
     });
 }
 
+function updateBreadcrumbs() {
+    const breadcrumbsList = document.querySelector('#breadcrumbs ul');
+    breadcrumbsList.innerHTML = '<li><a href="#" id="home-breadcrumb">Home</a></li>';
+    
+    if (currentCategoryName) {
+        breadcrumbsList.innerHTML += `<li>${currentCategoryName}</li>`;
+    }
+    
+    if (currentPostTitle) {
+        breadcrumbsList.innerHTML += `<li>${currentPostTitle}</li>`;
+    }
+
+    document.getElementById('home-breadcrumb').onclick = loadCategories;
+}
+
 async function loadCategories() {
+    currentCategoryId = null;
+    currentCategoryName = null;
+    currentPostId = null;
+    currentPostTitle = null;
+    updateBreadcrumbs();
+
     const categories = await backend.getCategories();
     const categoryList = document.getElementById('category-list');
     categoryList.innerHTML = '';
@@ -53,6 +76,11 @@ function getCategoryIcon(categoryName) {
 
 async function loadPosts(categoryId, categoryName) {
     currentCategoryId = categoryId;
+    currentCategoryName = categoryName;
+    currentPostId = null;
+    currentPostTitle = null;
+    updateBreadcrumbs();
+
     const posts = await backend.getPosts(categoryId);
     const postList = document.getElementById('post-list');
     postList.innerHTML = '';
@@ -68,6 +96,9 @@ async function loadPosts(categoryId, categoryName) {
 
 async function loadPostDetail(post) {
     currentPostId = post.id;
+    currentPostTitle = post.title;
+    updateBreadcrumbs();
+
     document.getElementById('post-title').textContent = post.title;
     document.getElementById('post-content').innerHTML = post.content;
     const comments = await backend.getComments(post.id);
@@ -98,7 +129,7 @@ document.getElementById('post-form').onsubmit = async (e) => {
     const content = postEditor.content.innerHTML;
     await backend.addPost(currentCategoryId, title, content);
     document.getElementById('modal').style.display = 'none';
-    loadPosts(currentCategoryId, document.getElementById('category-title').textContent);
+    loadPosts(currentCategoryId, currentCategoryName);
 };
 
 document.getElementById('comment-form').onsubmit = async (e) => {
@@ -106,13 +137,13 @@ document.getElementById('comment-form').onsubmit = async (e) => {
     const content = commentEditor.content.innerHTML;
     await backend.addComment(currentPostId, content);
     commentEditor.content.innerHTML = '';
-    loadPostDetail({ id: currentPostId, title: document.getElementById('post-title').textContent, content: document.getElementById('post-content').innerHTML });
+    loadPostDetail({ id: currentPostId, title: currentPostTitle, content: document.getElementById('post-content').innerHTML });
 };
 
 document.getElementById('back-to-categories').onclick = loadCategories;
 
 document.getElementById('back-to-posts').onclick = () => {
-    loadPosts(currentCategoryId, document.getElementById('category-title').textContent);
+    loadPosts(currentCategoryId, currentCategoryName);
 };
 
 window.onload = () => {
