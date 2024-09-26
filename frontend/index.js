@@ -51,7 +51,13 @@ async function loadCategories() {
     categoryList.innerHTML = '';
     categories.forEach(category => {
         const li = document.createElement('li');
-        li.innerHTML = `<i class="fas fa-${getCategoryIcon(category.name)}"></i> ${category.name}`;
+        li.innerHTML = `
+            <div class="category-header">
+                <i class="fas fa-${getCategoryIcon(category.name)}"></i>
+                <span class="category-name">${category.name}</span>
+            </div>
+            <p class="category-description">${category.description}</p>
+        `;
         li.onclick = () => {
             document.querySelectorAll('#category-list li').forEach(el => el.classList.remove('active'));
             li.classList.add('active');
@@ -69,7 +75,8 @@ function getCategoryIcon(categoryName) {
         "Blue Team Defense": "shield-virus",
         "Malware Analysis": "bug",
         "Network Security": "network-wired",
-        "Web Application Security": "globe"
+        "Web Application Security": "globe",
+        "Other": "folder"
     };
     return iconMap[categoryName] || "folder";
 }

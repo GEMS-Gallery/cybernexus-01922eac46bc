@@ -213,3 +213,20 @@ input[type="text"] {
 .breadcrumbs a:hover {
     text-decoration: underline;
 }
+
+.category-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.category-name {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.category-description {
+    margin: 0;
+    font-size: 0.9em;
+    color: #333;
+}

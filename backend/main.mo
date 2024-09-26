@@ -61,7 +61,8 @@ actor {
             ("Blue Team Defense", "Explore defensive tactics and incident response"),
             ("Malware Analysis", "Analyze and discuss various types of malware"),
             ("Network Security", "Discuss network security concepts and best practices"),
-            ("Web Application Security", "Explore vulnerabilities and security measures for web applications")
+            ("Web Application Security", "Explore vulnerabilities and security measures for web applications"),
+            ("Other", "Discuss any other cybersecurity topics not covered in other categories")
         ];
 
         for ((name, description) in defaultCategories.vals()) {
