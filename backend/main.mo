@@ -55,17 +55,33 @@ actor {
 
     // Initialize default categories
     private func initializeCategories() {
-        let defaultCategories = [
-            ("Penetration Testing", "Discuss techniques and tools for penetration testing"),
-            ("Red Team Operations", "Share experiences and strategies for red team engagements"),
-            ("Blue Team Defense", "Explore defensive tactics and incident response"),
-            ("Malware Analysis", "Analyze and discuss various types of malware"),
-            ("Network Security", "Discuss network security concepts and best practices"),
-            ("Web Application Security", "Explore vulnerabilities and security measures for web applications"),
-            ("Other", "Discuss any other cybersecurity topics not covered in other categories")
-        ];
+        if (categories.size() == 0) {
+            let defaultCategories = [
+                ("Penetration Testing", "Discuss techniques and tools for penetration testing"),
+                ("Red Team Operations", "Share experiences and strategies for red team engagements"),
+                ("Blue Team Defense", "Explore defensive tactics and incident response"),
+                ("Malware Analysis", "Analyze and discuss various types of malware"),
+                ("Network Security", "Discuss network security concepts and best practices"),
+                ("Web Application Security", "Explore vulnerabilities and security measures for web applications"),
+                ("Other", "Discuss any other cybersecurity topics not covered in other categories")
+            ];
 
-        for ((name, description) in defaultCategories.vals()) {
+            for ((name, description) in defaultCategories.vals()) {
+                let id = nextCategoryId;
+                let category: Category = {
+                    id;
+                    name;
+                    description;
+                };
+                categories.put(id, category);
+                nextCategoryId += 1;
+            };
+        };
+    };
+
+    // Category functions
+    public func addCategory(name: Text, description: Text) : async CategoryId {
+        if (categories.size() < 7) {
             let id = nextCategoryId;
             let category: Category = {
                 id;
@@ -74,20 +90,10 @@ actor {
             };
             categories.put(id, category);
             nextCategoryId += 1;
-        };
-    };
-
-    // Category functions
-    public func addCategory(name: Text, description: Text) : async CategoryId {
-        let id = nextCategoryId;
-        let category: Category = {
-            id;
-            name;
-            description;
-        };
-        categories.put(id, category);
-        nextCategoryId += 1;
-        id
+            id
+        } else {
+            0 // Return 0 if we've reached the maximum number of categories
+        }
     };
 
     public query func getCategories() : async [Category] {
