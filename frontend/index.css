@@ -145,3 +145,33 @@ input[type="text"] {
     border: 1px solid #000000;
     margin-bottom: 1rem;
 }
+
+.section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.section-header h2 {
+    margin-left: 1rem;
+    flex-grow: 1;
+}
+
+.icon-button {
+    background-color: transparent;
+    color: #000000;
+    border: 1px solid #000000;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    align-items: center;
+}
+
+.icon-button:hover {
+    background-color: #f0f0f0;
+}
+
+.icon-button .fas {
+    margin-right: 0.5rem;
+}

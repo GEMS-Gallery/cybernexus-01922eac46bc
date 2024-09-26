@@ -36,6 +36,7 @@ async function loadCategories() {
         };
         categoryList.appendChild(li);
     });
+    showSection('categories');
 }
 
 function getCategoryIcon(categoryName) {
@@ -62,9 +63,7 @@ async function loadPosts(categoryId, categoryName) {
         li.onclick = () => loadPostDetail(post);
         postList.appendChild(li);
     });
-    document.getElementById('categories').style.display = 'none';
-    document.getElementById('posts').style.display = 'block';
-    document.getElementById('post-detail').style.display = 'none';
+    showSection('posts');
 }
 
 async function loadPostDetail(post) {
@@ -79,8 +78,13 @@ async function loadPostDetail(post) {
         li.innerHTML = `<i class="fas fa-comment"></i> ${comment.content}`;
         commentList.appendChild(li);
     });
-    document.getElementById('posts').style.display = 'none';
-    document.getElementById('post-detail').style.display = 'block';
+    showSection('post-detail');
+}
+
+function showSection(sectionId) {
+    ['categories', 'posts', 'post-detail'].forEach(id => {
+        document.getElementById(id).style.display = id === sectionId ? 'block' : 'none';
+    });
 }
 
 document.getElementById('new-post-btn').onclick = () => {
@@ -103,6 +107,12 @@ document.getElementById('comment-form').onsubmit = async (e) => {
     await backend.addComment(currentPostId, content);
     commentEditor.content.innerHTML = '';
     loadPostDetail({ id: currentPostId, title: document.getElementById('post-title').textContent, content: document.getElementById('post-content').innerHTML });
+};
+
+document.getElementById('back-to-categories').onclick = loadCategories;
+
+document.getElementById('back-to-posts').onclick = () => {
+    loadPosts(currentCategoryId, document.getElementById('category-title').textContent);
 };
 
 window.onload = () => {
