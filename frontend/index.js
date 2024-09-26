@@ -9,10 +9,26 @@ async function loadCategories() {
     categoryList.innerHTML = '';
     categories.forEach(category => {
         const li = document.createElement('li');
-        li.textContent = category.name;
-        li.onclick = () => loadPosts(category.id, category.name);
+        li.innerHTML = `<i class="fas fa-${getCategoryIcon(category.name)}"></i> ${category.name}`;
+        li.onclick = () => {
+            document.querySelectorAll('#category-list li').forEach(el => el.classList.remove('active'));
+            li.classList.add('active');
+            loadPosts(category.id, category.name);
+        };
         categoryList.appendChild(li);
     });
+}
+
+function getCategoryIcon(categoryName) {
+    const iconMap = {
+        "Penetration Testing": "user-secret",
+        "Red Team Operations": "shield-alt",
+        "Blue Team Defense": "shield-virus",
+        "Malware Analysis": "bug",
+        "Network Security": "network-wired",
+        "Web Application Security": "globe"
+    };
+    return iconMap[categoryName] || "folder";
 }
 
 async function loadPosts(categoryId, categoryName) {
@@ -20,10 +36,10 @@ async function loadPosts(categoryId, categoryName) {
     const posts = await backend.getPosts(categoryId);
     const postList = document.getElementById('post-list');
     postList.innerHTML = '';
-    document.getElementById('category-title').textContent = categoryName;
+    document.getElementById('category-title').innerHTML = `<i class="fas fa-${getCategoryIcon(categoryName)}"></i> ${categoryName}`;
     posts.forEach(post => {
         const li = document.createElement('li');
-        li.textContent = post.title;
+        li.innerHTML = `<i class="fas fa-file-alt"></i> ${post.title}`;
         li.onclick = () => loadPostDetail(post);
         postList.appendChild(li);
     });
@@ -41,7 +57,7 @@ async function loadPostDetail(post) {
     commentList.innerHTML = '';
     comments.forEach(comment => {
         const li = document.createElement('li');
-        li.textContent = comment.content;
+        li.innerHTML = `<i class="fas fa-comment"></i> ${comment.content}`;
         commentList.appendChild(li);
     });
     document.getElementById('posts').style.display = 'none';

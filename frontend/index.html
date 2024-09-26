@@ -4,40 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hacker Forum</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <header>
-        <h1>Hacker Forum</h1>
+        <h1><i class="fas fa-terminal"></i> Hacker Forum</h1>
     </header>
     <main>
         <section id="categories">
-            <h2>Categories</h2>
+            <h2><i class="fas fa-folder"></i> Categories</h2>
             <ul id="category-list"></ul>
         </section>
         <section id="posts" style="display: none;">
             <h2 id="category-title"></h2>
-            <button id="new-post-btn">New Post</button>
+            <button id="new-post-btn"><i class="fas fa-plus"></i> New Post</button>
             <ul id="post-list"></ul>
         </section>
         <section id="post-detail" style="display: none;">
             <h2 id="post-title"></h2>
             <p id="post-content"></p>
-            <h3>Comments</h3>
+            <h3><i class="fas fa-comments"></i> Comments</h3>
             <ul id="comment-list"></ul>
             <form id="comment-form">
                 <textarea id="comment-content" required></textarea>
-                <button type="submit">Add Comment</button>
+                <button type="submit"><i class="fas fa-paper-plane"></i> Add Comment</button>
             </form>
         </section>
     </main>
     <div id="modal" class="modal" style="display: none;">
         <div class="modal-content">
-            <h2>New Post</h2>
+            <h2><i class="fas fa-edit"></i> New Post</h2>
             <form id="post-form">
                 <input type="text" id="post-title-input" placeholder="Title" required>
                 <textarea id="post-content-input" placeholder="Content" required></textarea>
-                <button type="submit">Submit</button>
+                <button type="submit"><i class="fas fa-save"></i> Submit</button>
             </form>
         </div>
     </div>

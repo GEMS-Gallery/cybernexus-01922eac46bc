@@ -3,16 +3,16 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #000000;
-    color: #00FF00;
+    background-color: #ffffff;
+    color: #000000;
 }
 
 header {
-    background-color: #1a1a1a;
-    color: #00FF00;
+    background-color: #f0f0f0;
+    color: #000000;
     text-align: center;
     padding: 1rem;
-    border-bottom: 1px solid #00FF00;
+    border-bottom: 1px solid #000000;
 }
 
 main {
@@ -20,7 +20,7 @@ main {
 }
 
 h1, h2, h3 {
-    color: #00FF00;
+    color: #000000;
 }
 
 ul {
@@ -29,21 +29,26 @@ ul {
 }
 
 li {
-    background-color: #1a1a1a;
+    background-color: #f0f0f0;
     margin-bottom: 1rem;
     padding: 1rem;
-    border: 1px solid #00FF00;
+    border: 1px solid #000000;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 li:hover {
-    background-color: #2a2a2a;
+    background-color: #e0e0e0;
+}
+
+li.active {
+    background-color: #00ff00;
+    color: #000000;
 }
 
 button {
-    background-color: #00FF00;
-    color: #000000;
+    background-color: #000000;
+    color: #ffffff;
     border: none;
     padding: 0.5rem 1rem;
     cursor: pointer;
@@ -52,14 +57,14 @@ button {
 }
 
 button:hover {
-    background-color: #00CC00;
+    background-color: #333333;
 }
 
 textarea, input[type="text"] {
     width: 100%;
-    background-color: #1a1a1a;
-    color: #00FF00;
-    border: 1px solid #00FF00;
+    background-color: #f0f0f0;
+    color: #000000;
+    border: 1px solid #000000;
     padding: 0.5rem;
     margin-bottom: 1rem;
     font-family: 'Courier New', monospace;
@@ -76,10 +81,10 @@ textarea, input[type="text"] {
 }
 
 .modal-content {
-    background-color: #1a1a1a;
+    background-color: #ffffff;
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #00FF00;
+    border: 1px solid #000000;
     width: 80%;
     max-width: 600px;
 }
@@ -95,13 +100,17 @@ textarea, input[type="text"] {
 }
 
 ::-webkit-scrollbar-track {
-    background: #1a1a1a;
+    background: #f0f0f0;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #00FF00;
+    background: #000000;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #00CC00;
+    background: #333333;
+}
+
+.fas {
+    margin-right: 0.5rem;
 }
