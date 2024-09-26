@@ -1,0 +1,35 @@
+type Time = int;
+type PostId = nat;
+type Post = 
+ record {
+   author: principal;
+   categoryId: CategoryId;
+   content: text;
+   createdAt: Time;
+   id: PostId;
+   title: text;
+ };
+type CommentId = nat;
+type Comment = 
+ record {
+   author: principal;
+   content: text;
+   createdAt: Time;
+   id: CommentId;
+   postId: PostId;
+ };
+type CategoryId = nat;
+type Category = 
+ record {
+   description: text;
+   id: CategoryId;
+   name: text;
+ };
+service : {
+  addCategory: (text, text) -> (CategoryId);
+  addComment: (PostId, text) -> (CommentId);
+  addPost: (CategoryId, text, text) -> (PostId);
+  getCategories: () -> (vec Category) query;
+  getComments: (PostId) -> (vec Comment) query;
+  getPosts: (CategoryId) -> (vec Post) query;
+}
